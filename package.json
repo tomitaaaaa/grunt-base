@@ -1,22 +1,27 @@
 {
-  "name": "gruntベース",
-  "description": "gruntによるビルド環境ベース",
-  "version": "0.1.0",
-  "author": "tomtoma",
-  "dependencies": {
-    "grunt": "~0.4.0",
-    "grunt-contrib-compass": "~0.1.2",
-    "grunt-contrib-watch": "~0.2.0",
-    "grunt-contrib-concat": "~0.1.2",
-    "grunt-contrib-clean": "~0.4.0",
-    "grunt-contrib-uglify": "~0.1.1"
+  "name": "grunt-base",
+  "version": "0.0.1",
+  "description": "base of grunt",
+  "main": "gruntfile.js",
+  "scripts": {
+    "test": "\"echo \\ \"Error: no test specified\\ \" && exit 1\""
   },
+  "repository": "",
+  "author": "tomtoma",
+  "license": "MIT",
   "devDependencies": {
-    "grunt": "~0.4.0",
-    "grunt-contrib-compass": "~0.1.2",
-    "grunt-contrib-watch": "~0.2.0",
+    "grunt": "~0.4.1",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-contrib-cssmin": "~0.4.2",
     "grunt-contrib-concat": "~0.1.2",
     "grunt-contrib-clean": "~0.4.0",
-    "grunt-contrib-uglify": "~0.1.1"
+    "grunt-contrib-uglify": "~0.1.1",
+    "grunt-contrib-compass": "~0.1.2",
+    "grunt-styleguide": "~0.2.5",
+    "grunt-contrib-livereload": "~0.1.2",
+    "grunt-contrib-connect": "~0.3.0",
+    "grunt-regarde": "~0.1.1",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-jshint": "~0.4.3"
   }
 }
