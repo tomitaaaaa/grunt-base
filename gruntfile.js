@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		/* ライブリロード */
 		connect: {
-			livereload: {
+			server: {
 				options: {
 					port: 9001,
 					middleware: function(connect, options) {
@@ -25,19 +25,11 @@ module.exports = function(grunt) {
 			basic : {
 				// 結合元となるファイル
 				src : [
-					'htdocs/js/_dev/libs/*.js'
+					'htdocs/js/_dev/_libs/*.js'
 				],
 				// 結合先のファイル名
 				dest : 'htdocs/js/libs/libs.js'
-			}//,
-			// extras: {
-			// 	// 結合元となるファイル
-			// 	src : [
-			// 		'htdocs/js/_dev/_js/*.js'
-			// 	],
-			// 	// 結合先のファイル名
-			// 	dest : 'htdocs/js/_dev/common.js'
-			// }
+			}
 		},
 		/* jsファイルをminify */
 		uglify: {
@@ -68,6 +60,22 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		styleguide: {
+			styledocco: {
+				options: {
+					framework: {
+						name: 'styledocco'
+					},
+					name: 'Style Guide',
+					template: {
+						include: ['htdocs/css/_dev/main.css']
+					}
+				},
+				files: {
+					'docs/styles': 'htdocs/css/_dev/_scss/*.scss'
+				}
+			}
+        },
 		coffee: {
 			options: {
 				bare: true
@@ -88,36 +96,47 @@ module.exports = function(grunt) {
 			}
 		},
         jshint: {
-            files: ['htdocs/js/_dev/_concat/*.js']
+			files: ['htdocs/js/_dev/*.js']
         },
 		/* 余計なフォルダ・ファイルを削除 */
 		clean: ["htdocs/css/import"],
 		/* ファイルを監視 */
-		regarde: {
+		watch: {
 			/* htmlファイルの監視設定 */
 			html: {
 				files: '**/*.html',
-				tasks: ['livereload']
+				tasks: [],
+				options: {
+					livereload: true,
+					nospawn: true
+				}
 			},
 			/* scssファイルの監視設定 */
 			sass: {
-				files: '**/css/**/scss/*.scss',
-				tasks: ['compass','livereload']
+				files: '**/css/**/_scss/*.scss',
+				tasks: ['compass','styleguide'],
+				options: {
+					livereload: true,
+					nospawn: true
+				}
 			},
-			/* jsファイルの監視設定 */
-			// js: {
-			// 	files: '**/js/_dev/*.js',
-			// 	tasks: ['concat','uglify','livereload']
-			// },
 			/* jsライブラリの監視設定 */
 			jslib: {
-				files: '**/js/_dev/libs/*.js',
-				tasks: ['concat','livereload']
+				files: '**/js/_dev/_libs/*.js',
+				tasks: ['concat'],
+				options: {
+					livereload: true,
+					nospawn: true
+				}
 			},
 			/* jsファイルの監視設定 */
 			coffee: {
 				files: '**/js/_dev/_coffee/*.coffee',
-				tasks: ['coffee','jshint','uglify','livereload']
+				tasks: ['coffee','jshint','uglify'],
+				options: {
+					livereload: true,
+					nospawn: true
+				}
 			}
 		}
 	});
@@ -129,9 +148,11 @@ module.exports = function(grunt) {
 			grunt.loadNpmTasks(taskName);
 		}
 	}
-	grunt.registerTask('default', [ 'connect', 'livereload-start','regarde']);
+	grunt.registerTask('default', [ 'connect','watch']);
 	grunt.registerTask('eatwarnings', function() {
-		process.exit = function() {};
+		grunt.warn = grunt.fail.warn = function(warning) {
+			grunt.log.error(warning);
+		};
 	});
 };
 

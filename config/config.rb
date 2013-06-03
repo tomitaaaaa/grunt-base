@@ -3,7 +3,7 @@
 # Set this to the root of your project when deployed:
 http_path = "/"
 css_dir = "htdocs/css"
-sass_dir = "htdocs/css/_dev/scss"
+sass_dir = "htdocs/css/_dev/_scss"
 images_dir = "htdocs/img"
 javascripts_dir = "htdocs/js"
 # output_style = :compressed

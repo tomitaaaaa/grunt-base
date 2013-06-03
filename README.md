@@ -3,39 +3,48 @@
 
 [http://gruntjs.com/](http://gruntjs.com/)
 
+（2013/05/12 UPDATE）
+
 
 ##タスク
 * jsファイルを結合（複数のjsファイルでコードを管理したい）
 * jsファイルをminify
 * compassでsassをビルド
+* 仮想サーバを立ち上げてブラウザのオートリロード
+* coffeeスクリプトのコンパイル
+* minify前にjshint
 * 上記のタスクをファイル監視で自動化
 
-
+##前回からの変更点
+* とりあえずブラウザのオートリロードの機能を追加。
+* compassはちゃんとconfig.rbの設定を読み込むように修正。
+* coffee scriptの自動コンパイルをタスクに追加。
+* ファイル監視のプラグインをcontrib-watchからgrunt-regardeに変更（どうもcontribのライブリロードするのにはこっちでないといけないらしい？）
 
 ##使用プラグイン
-* [https://github.com/gruntjs/grunt-contrib-compass](https://github.com/gruntjs/grunt-contrib-compass)　//compass  
-* [https://github.com/gruntjs/grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch)　//ファイル監視  
-* [https://github.com/gruntjs/grunt-contrib-concat](https://github.com/gruntjs/grunt-contrib-concat)　//jsファイル結合
-* [https://github.com/gruntjs/grunt-contrib-uglify](https://github.com/gruntjs/grunt-contrib-uglify)　//jsファイルのminify
-* [https://github.com/gruntjs/grunt-contrib-clean](https://github.com/gruntjs/grunt-contrib-clean)　//ファイル、フォルダの削除
-
-
-##補足
-cleanを使ってるのは書き方調べきれてなくてcompassのimport用のファイルまでhtdocs配下にビルドされてしまうので、importフォルダ内にまとめて吐き出されたimportフォルダごと消し去っているため。。。   なんとかするべきじゃね。。。
+* "grunt-contrib-watch": "~0.3.1",
+* "grunt-contrib-cssmin": "~0.4.2",
+* "grunt-contrib-concat": "~0.1.2",
+* "grunt-contrib-clean": "~0.4.0",
+* "grunt-contrib-uglify": "~0.1.1",
+* "grunt-contrib-compass": "~0.1.2",
+* "grunt-contrib-livereload": "~0.1.2",
+* "grunt-contrib-connect": "~0.3.0",
+* "grunt-regarde": "~0.1.1",
+* "grunt-contrib-coffee": "~0.7.0",
+* "grunt-contrib-jshint": "~0.4.3"
 
 
 ##TODO
-* ブラウザのオートリロード
-* jsドキュメントの作成を自動化（Yuidocsとか）
+* js、cssドキュメントの作成を自動化（Yuidocsとか）
 * compassはちゃんとconfig.rbで設定する（そもそもまだcompassがよくわからん）
 
 ##雑感
 
-はじめてgrunt環境を構築してみたけど、すごい楽な気がする。いちいちsass --watch　〜みたいに書かなくていいのがスゴイいい。
+うーんなんとか欲しかった機能の導入にゅうに成功、coffee scriptはこれから挑戦するのでjsを直に書くパターンには戻りやすくしておいた
 
-そんなにcompass使ってないのでsassのビルドにcompassじゃなくてもいいんじゃねとか思ってるけど、とりあえずcompassの力を体験してみるまでやってみる。
+grunt-regardeにしたせいなのか、コンパイルに失敗するとgruntの監視が全てストップすることがあるのに対応はしているがなんか見逃しがありそう。運用しながら調整する予定。。。
 
-プラグイン類はよくわからんのでとりあえずメジャーっぽいものをチョイス。
 
 ##参考記事
 * [http://havelog.ayumusato.com/tag/Grunt/](http://havelog.ayumusato.com/tag/Grunt/)
